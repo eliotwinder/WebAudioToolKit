@@ -1,0 +1,58 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, user-scalable=no">
+<title>WATK</title>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="connect_to_audio_param.js"></script>
+<script type="text/javascript" src ="oscilloscope.js"></script>
+
+</head>
+
+<body>
+<input type='button' id='startsource' value='start source'><br>
+<input type='button' id='startmod' value='start mod'><br>
+<input type='button' id='startboth' value='start both'><br>
+<br>
+<input type='button' id='stopsource' value='stop source'><br>
+<input type='button' id='stopmod' value='stop mod'><br>
+<input type='button' id='stopboth' value='stop both'><br>
+
+
+<canvas id='scope'></canvas>
+
+<script type='text/javascript'> 
+
+$( document ).ready(function() {
+	// buttons!!!
+	$('#startsource').click(function(){
+    	source.start(0);
+	});
+
+	$('#startmod').click(function(){
+	    mod.start(0);
+	});
+
+	$('#startboth').click(function(){
+	   start();
+
+	});
+
+	$('#stopsource').click(function(){
+	    source.stop(0);
+	});
+
+	$('#stopmod').click(function(){
+	    mod.stop(0);
+	});
+
+	$('#stopboth').click(function(){
+	    source.stop(0);
+	    mod.stop(0);
+	});
+
+	draw();
+	
+});
+</script>
+</body>
