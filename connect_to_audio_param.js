@@ -2,50 +2,52 @@
 window.AudioContext = window.AudioContext || window.webkitAudioContext;
 var context = new window.AudioContext();
 
-var source, mod;
+//module decleration
+var source =context.createOscillator();
 var gain = context.createGain();
+var mod = context.createOscillator();
+var modAmp = context.createGain();
 
-function start() {
-	//create source and gain, connect them
-	source = context.createOscillator();
-	
-	source.connect(gain);
+//routing
+source.connect(gain);
+gain.connect(context.destination);
+mod.connect(modAmp);
+modAmp.connect(gain.gain);
 
-	//create modulator and gain for it and connect them
-	mod1 = context.createOscillator();
-	var modAmp1 = context.createGain(); 
-	mod1.connect(modAmp1);
 
-	//connect modulator gain node to audio param 
-	modAmp1.connect(gain.gain);
+//source default values
+source.frequency.value = 220;
+gain.gain.value = 1;
 
-	//create modulator and gain for it and connect them
-	mod = context.createOscillator();
-	var modAmp = context.createGain(); 
-	mod.connect(modAmp);
+//mod values
+mod.frequency.value = 3;
+modAmp.gain.value = .2;
 
-	//connect modulator gain node to audio param 
-	modAmp.connect(source.frequency);
+//for jquery document.ready
+function modulatorReady(){
+$('#startsource').click(function(){
+   		source.start(0);
+	});
 
-	//connect to audio context
-	gain.connect(context.destination);
+	$('#startmod').click(function(){
+	    mod.start(0);
+	});
 
-	//connect gain to analyser
-	analyser.connect(gain);
+	$('#startboth').click(function(){
+	  	source.start(0);
+	   	mod.start(0);
+	});
 
-	//source values
-	source.frequency.value = 220;
-	gain.gain.value = 0.2;
+	$('#stopsource').click(function(){
+	    source.stop(0);
+	});
 
-	//mod values
-	mod.frequency.value = 1;
-	modAmp.gain.value = 50;
+	$('#stopmod').click(function(){
+	    mod.stop(0);
+	});
 
-	//mod1 values
-	mod1.frequency.value = 4;
-	modAmp1.gain.value = .5;
-
-	source.start(0);
-	// mod.start(0);
-	mod1.start(0);
+	$('#stopboth').click(function(){
+	    source.stop(0);
+	    mod.stop(0);
+	});
 }

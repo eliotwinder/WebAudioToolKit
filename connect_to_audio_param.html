@@ -10,6 +10,10 @@
 </head>
 
 <body>
+carrier gain: <input type='range' id='sourcegain' step='.01' min='0' max='1'><br>
+carrier freq: <input type='range' id='sourcefreq' step='.01' min='100' max='1000'><br>
+mod gain: <input type='range' id='modgain' step='.01' min='0' max='1'><br>
+mod freq: <input type='range' id='modfreq' step='1' min='1' max='1000'><br>
 <input type='button' id='startsource' value='start source'><br>
 <input type='button' id='startmod' value='start mod'><br>
 <input type='button' id='startboth' value='start both'><br>
@@ -25,34 +29,28 @@
 
 $( document ).ready(function() {
 	// buttons!!!
-	$('#startsource').click(function(){
-    	source.start(0);
+	modulatorReady();
+
+	// set values with sliders
+
+	$('#sourcefreq').on('input', function() {
+	    source.frequency.value = $(this).val();
 	});
 
-	$('#startmod').click(function(){
-	    mod.start(0);
+	$('#sourcegain').on('input', function() {
+	    gain.gain.value = $(this).val();
 	});
 
-	$('#startboth').click(function(){
-	   start();
-
+	$('#modfreq').on('input', function() {
+	    mod.frequency.value = $(this).val();
 	});
 
-	$('#stopsource').click(function(){
-	    source.stop(0);
+	$('#modgain').on('input', function() {
+	    modAmp.gain.value = $(this).val();
 	});
 
-	$('#stopmod').click(function(){
-	    mod.stop(0);
-	});
 
-	$('#stopboth').click(function(){
-	    source.stop(0);
-	    mod.stop(0);
-	});
-
-	draw();
-	
+	draw();	
 });
 </script>
 </body>
