@@ -7,12 +7,15 @@ var source =context.createOscillator();
 var gain = context.createGain();
 var mod = context.createOscillator();
 var modAmp = context.createGain();
+var analyser =context.createAnalyser();
 
 //routing
 source.connect(gain);
-gain.connect(context.destination);
-mod.connect(modAmp);
-modAmp.connect(gain.gain);
+
+gain.connect(analyser);
+	mod.connect(modAmp);
+	modAmp.connect(source.frequency);
+// analyser.connect(context.destination);
 
 
 //source default values
@@ -22,6 +25,9 @@ gain.gain.value = 1;
 //mod values
 mod.frequency.value = 3;
 modAmp.gain.value = .2;
+
+//analyser values
+analyser.maxDecibels = -50;
 
 //for jquery document.ready
 function modulatorReady(){
