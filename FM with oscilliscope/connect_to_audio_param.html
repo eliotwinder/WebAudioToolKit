@@ -1,0 +1,53 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, user-scalable=no">
+<title>WATK</title>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src ="oscilloscope.js"></script>
+<script type="text/javascript" src="connect_to_audio_param.js"></script>
+<script type="text/javascript" src ="filter.js"></script>
+
+</head>
+
+<body>
+carrier gain: <input type='range' id='sourcegain' step='.01' min='0' max='1'><br>
+carrier freq: <input type='range' id='sourcefreq' step='.01' min='100' max='1000'><br>
+mod gain: <input type='range' id='modgain' step='.01' min='0' max='1'><br>
+mod freq: <input type='range' id='modfreq' step='1' min='1' max='1000'><br>
+<input type='button' id='startsource' value='start source'><br>
+<input type='button' id='startmod' value='start mod'><br>
+<input type='button' id='startboth' value='start both'><br>
+<br>
+<input type='button' id='stopsource' value='stop source'><br>
+<input type='button' id='stopmod' value='stop mod'><br>
+<input type='button' id='stopboth' value='stop both'><br>
+<h2>Filter</h2>
+Type: <select id='filter'>
+	<option value="lowpass">lowpass</option>
+    <option value="highpass">highpass</option>
+    <option value="bandpass">bandpass</option>
+    <option value="lowshelf">lowshelf</option>
+    <option value="highshelf">highshelf</option>
+    <option value="peaking">peaking</option>
+    <option value="notch">notch</option>
+    <option value="allpass">allpass</option>
+</select><br>
+freq: <input type='range' id='filterfreq' step='.01' min='1' max='10'><br>
+q: <input type='range' id='filterq' step='0.1' min='0.2' max='4.3'><br>
+gain: <input type='range' id='filtergain' step='.01' min='0' max='1'><br>
+
+Dry:
+<canvas id='dryscope'></canvas>
+Combined:
+<canvas id='mixscope'></canvas>
+Wet:
+<canvas id='wetscope'></canvas>
+
+
+
+<script type='text/javascript'> 
+
+
+</script>
+</body>

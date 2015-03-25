@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no">
+  <title>mp3playr</title>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script type="text/javascript" src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+   <link href='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css' rel='stylesheet' type='text/css'>
+  <script type="text/javascript" src="mp3player.js"></script>
+  <link href="mp3player.css" rel="stylesheet" type="text/css"> 
+
+</head>
+
+<body>
+	<audio id='player' src="mp3s/EttaAnything.mp3" width="375" height="280" controls></audio>
+	<br>
+	Type: <select id='filtertype'>
+          <option value="lowpass">lowpass</option>
+            <option value="highpass">highpass</option>
+            <option value="bandpass">bandpass</option>
+            <option value="lowshelf">lowshelf</option>
+            <option value="highshelf">highshelf</option>
+            <option value="peaking">peaking</option>
+            <option value="notch">notch</option>
+            <option value="allpass">allpass</option>
+        </select><br>
+	<div class='slidercontainer'>
+		<label for='filterfreqlabel'>Freq</label><br>
+		<input type="text" id='filterfreqlabel' class='sliderreader'>
+		<div id='filterfreq' class="slider"></div>
+	</div>
+	<div class='slidercontainer'>
+		<label for='filterqlabel'>Q</label><br>
+		<input type="text" id='filterqlabel' class='sliderreader'>
+		<div id='filterq' class="slider"></div>
+	</div>
+	<div class='slidercontainer'>
+		<label for='filtergainlabel'>Gain</label><br>
+		<input type="text" id='filtergainlabel' class='sliderreader'>
+		
+		<div id='filtergain' class="slider"></div>
+	</div>
+	<br>
+	<h2>EQ</h2>
+	<br>
+	<div id='eqholder'></div>
+	<div id='eqtemplate'>
+		<div class='slidercontainer'>
+			<label>Freq</label><br>
+			<input type="text" id='eqfreq' class='sliderreader'>
+			<div class="slider"></div>
+		</div>
+	</div>
+</body>
+</html>
