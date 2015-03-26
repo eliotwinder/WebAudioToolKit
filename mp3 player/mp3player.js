@@ -8,7 +8,7 @@ $(function(){
 	filter.type = 'lowpass';
 	filter.frequency.value = 220;
 
-	source.connect(filter);
+	
 	filter.connect(context.destination);
 
 	//slider formatting
@@ -57,8 +57,12 @@ $(function(){
 
 	$( "#filtergainlabel" ).val( $( "#filtergain" ).slider( "value" ) );
 
+	function createSlider( slidertemplate, index, arrayofbands ){
+		
+	}
+
 	///////EQ
-	function createEq() {
+	function createEq( input, output ) {
 		//find our template eq
 		var eqTemplate = $('#eqtemplate');
 
@@ -71,47 +75,64 @@ $(function(){
 		//make a list of the peaking filters we want
 		var bands = [60,170,310,600,1000,3000,6000,12000,14000,16000];
 
+		function abc(slider, i) {
+			slider.slider( {
+				orientation: 'vertical',
+				min: -12,
+				max: 12,
+				step: .01,
+				slide: function( event, ui ) {
+					eqFilters[i].gain.value = ui.value;		
+				}
+			});
+		}
+
 		for (var i = 0; i < bands.length; i ++) {
+
 			//set up the filter
 			var filter = context.createBiquadFilter();
 			filter.type = 'peaking';
 			filter.frequency.value = bands[i];
+			filter.myIndex = i;
+			
+			//routing
+			if(i === 0) {
+				input.connect(filter);
+			} else {
 
+				eqFilters[i-1].connect(filter);
+			}
+
+			if(i === bands.length - 1) {
+				filter.connect(output);
+			} 
+			
+			eqFilters.push(filter);
 
 			//set up the slider
 			var el = eqTemplate.clone();
 			var slider = el.find('.slider');
-			var newClass = 'filter' + i;
-			slider.addClass(newClass);
+			slider.addClass('filter' + i);
+			
 			el.find('label').text(bands[i] + ' hz');
-			console.log('.filter'+i);
-			console.log(slider)
-			console.log($('.filter'+i));
-			slider.data('frequency', bands[i]);
-			slider.slider( {
-				orientation: 'vertical',
-				min: 0,
-				max: 1.2,
-				step: .01,
-				
-				slide: function( event, ui ) {
-					
-					// $( "#filtergainlabel" ).val( $( "#filtergain" ).slider( "value" ) );
-				}
-			});
-
 			
 			el.css('display', 'inline-block');
-			eqHolder.append(el);
 			
-			eqFilters.push(filter);
+			// var j = stableIndex(i);
+			abc(slider, i);
+
+			eqHolder.append(el);
+		
+			
 		}
 		eqTemplate.remove();
 		return eqFilters;
 	}
 
-	var eqFilters = createEq();
+	var eq = createEq( source , filter );
 
-	
+	setInterval(function() {
+		// console.log(eq[3].gain.value);
+	},600);
 
 });
